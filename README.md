@@ -1,53 +1,80 @@
 Project Goal
----------------------
+------------
 
-
-    We want to be able to predict the property tax assessed values ('taxvaluedollarcnt') of Single Family Properties that had a transaction during 2017.
-
-    We have a model already, but we are hoping your insights can help us improve it. I need recommendations on a way to make a better model. Maybe you will create a new feature out of existing ones that works better, try a non-linear regression algorithm, or try to create a different model for each county. Whatever you find that works (or doesn't work) will be useful. Given you have just joined our team, we are excited to see your outside perspective.
-
-    One last thing, Zach lost the email that told us where these properties were located. Ugh, Zach :-/. Because property taxes are assessed at the county level, we would like to know what states and counties these are located in.
-
--- The Zillow Data Science Team
-
-
-
-    Find the key drivers of property value for single family properties and construct an ML Regression model that will predict property tax assessed values (tax_value) for those homes.
+    The Zillow team would like to improve upon our Zestimate logerror by reviewing the dataframe from 2017 single unit / single family homes and determining what features can predict logerror, then building a ML Model to predict said logerror. Use feature engineering and clustering to explore the data and build the models.
 
 Initial Questions
+-----------------
 
-    Does more square footage have a linear relation to tax value, as I suspect it to?
-    Would the year the house was built positively or negatively affect tax value?
-    Will the geographical location(fips) be useful, or does it skew the data?
-
-
-
-
-Initial Questions
----------------------
-
-
-    Does more square footage have a linear relation to tax value, as I suspect it to?
-    
-    Would the year the house was built positively or negatively affect tax value?
-    
-    Will the geographical location(fips) be useful, or does it skew the data?
-
-
-
-
+    Is there a relationship between logerror and age?
+    Does the county(fips) influence the logerror?
+    Does size of the property infuence the logerror?
+    Can taxamount or taxvaluedollarcnt be used to calculate logerror?
 
 Data Dictionary
----------------------
+---------------
 
- 	        Feature 	                           Description
-3 	'bathroomcnt'               	Number of bathrooms in home including fractio...
-4 	'bedroomcnt' 	                Number of bedrooms in home
-10 	'finishedfloor1squarefeet'   	Size of the finished living area on the first...
-17 	'fips'                  	    Federal Information Processing Standard code ...
-50 	'yearbuilt' 	                The Year the principal residence was built
-51 	'taxvaluedollarcnt'         	The total tax assessed value of the parcel
-54 	'taxamount' 	                The total property tax assessed for that asses...
+Feature -----> Discription
 
 
-
+'airconditioningtypeid'    ---> Type of cooling system present in the home (if any)
+'architecturalstyletypeid' --->     Architectural style of the home (i.e. ranch, colonial, split-level, etc…)
+'basementsqft'    ---> Finished living area below or partially below ground level
+'bathroomcnt'    ---> Number of bathrooms in home including fractional bathrooms
+'bedroomcnt'    ---> Number of bedrooms in home 
+'buildingqualitytypeid'    ---> Overall assessment of condition of the building from best (lowest) to worst (highest)
+'buildingclasstypeid'    ---> The building framing type (steel frame, wood frame, concrete/brick) 
+'calculatedbathnbr'    ---> Number of bathrooms in home including fractional bathroom
+'decktypeid'    ---> Type of deck (if any) present on parcel
+'threequarterbathnbr'    ---> Number of 3/4 bathrooms in house (shower + sink + toilet)
+'finishedfloor1squarefeet'    ---> Size of the finished living area on the first (entry) floor of the home
+'calculatedfinishedsquarefeet'    ---> Calculated total finished living area of the home 
+'finishedsquarefeet6'    ---> Base unfinished and finished area
+'finishedsquarefeet12'    ---> Finished living area
+'finishedsquarefeet13'    ---> Perimeter  living area
+'finishedsquarefeet15'    ---> Total area
+'finishedsquarefeet50'    ---> Size of the finished living area on the first (entry) floor of the home
+'fips'    ---> Federal Information Processing Standard code -  see https://en.wikipedia.org/wiki/FIPS_county_code for more details
+'fireplacecnt'    ---> Number of fireplaces in a home (if any)
+'fireplaceflag'     ---> Is a fireplace present in this home 
+'fullbathcnt'    ---> Number of full bathrooms (sink, shower + bathtub, and toilet) present in home
+'garagecarcnt'    ---> Total number of garages on the lot including an attached garage
+'garagetotalsqft'    ---> Total number of square feet of all garages on lot including an attached garage
+'hashottuborspa'    ---> Does the home have a hot tub or spa
+'heatingorsystemtypeid'     ---> Type of home heating system
+'latitude'    ---> Latitude of the middle of the parcel multiplied by 10e6
+'longitude'    ---> Longitude of the middle of the parcel multiplied by 10e6
+'lotsizesquarefeet'    --> Area of the lot in square feet
+'numberofstories'    ---> Number of stories or levels the home has
+'parcelid'     ---> Unique identifier for parcels (lots) 
+'poolcnt'    --> Number of pools on the lot (if any)
+'poolsizesum'    ---> Total square footage of all pools on property
+'pooltypeid10'    ---> Spa or Hot Tub
+'pooltypeid2'    ---> Pool with Spa/Hot Tub
+'pooltypeid7'    ---> Pool without hot tub
+'propertycountylandusecode'    ---> County land use code i.e. it's zoning at the county level
+'propertylandusetypeid'    ---> Type of land use the property is zoned for
+'propertyzoningdesc'    ---> Description of the allowed land uses (zoning) for that property
+'rawcensustractandblock'    ---> Census tract and block ID combined - also contains blockgroup assignment by extension
+'censustractandblock'    ---> Census tract and block ID combined - also contains blockgroup assignment by extension
+'regionidcounty'   ---> County in which the property is located
+'regionidcity'    ---> City in which the property is located (if any)
+'regionidzip'    ---> Zip code in which the property is located
+'regionidneighborhood'  ---> Neighborhood in which the property is located
+'roomcnt'    ---> Total number of rooms in the principal residence
+'storytypeid'    ---> Type of floors in a multi-story house (i.e. basement and main level, split-level, attic, etc.).  See tab for details.
+'typeconstructiontypeid'    ---> What type of construction material was used to construct the home
+'unitcnt'    ---> Number of units the structure is built into (i.e. 2 = duplex, 3 = triplex, etc...)
+'yardbuildingsqft17'    ---> Patio in  yard
+'yardbuildingsqft26'    ---> Storage shed/building in yard
+'yearbuilt'     ---> The Year the principal residence was built 
+'taxvaluedollarcnt' ---> The total tax assessed value of the parcel
+'structuretaxvaluedollarcnt'    ---> The assessed value of the built structure on the parcel
+'landtaxvaluedollarcnt' ---> The assessed value of the land area of the parcel
+'taxamount'    ---> The total property tax assessed for that assessment year
+'assessmentyear'    ---> The year of the property tax assessment 
+'taxdelinquencyflag'    ---> Property taxes for this parcel are past due as of 2015
+'taxdelinquencyyear'    ---> Year for which the unpaid propert taxes were due 
+'age'   ---> How long since the property was built (in years)
+'logerror'  ---> How far off the Zestimate was from the actual sales price
+'abs_logerror'.  ---> an absolute value representation of the logerror
