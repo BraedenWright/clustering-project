@@ -102,6 +102,9 @@ def wrangle_zillow():
     df = df[df.calculatedfinishedsquarefeet < 9000]
     df = df[df.taxamount < 20000]
     
+    # Download cleaned data to a .csv
+    df.to_csv(filename, index=False)
+    
     print('Downloading data from SQL...')
     print('Saving to .csv')
     return df
