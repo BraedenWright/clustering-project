@@ -1,15 +1,15 @@
 Project Goal
 ------------
 
-    The Zillow team would like to improve upon our Zestimate logerror by reviewing the dataframe from 2017 single unit / single family homes and determining what features can predict logerror, then building a ML Model to predict said logerror. Use feature engineering and clustering to explore the data and build the models.
+The Zillow team would like to improve upon our Zestimate logerror by reviewing the dataframe from 2017 single unit / single family homes and determining what features can predict logerror, then building a ML Model to predict said logerror. Use feature engineering and clustering to explore the data and build the models.
 
 Initial Questions
 -----------------
 
-    Is there a relationship between logerror and age?
-    Does the county(fips) influence the logerror?
-    Does size of the property infuence the logerror?
-    Can taxamount or taxvaluedollarcnt be used to calculate logerror?
+- Is there a relationship between logerror and age?
+- Does the county(fips) influence the logerror?
+- Does size of the property infuence the logerror?
+- Can taxamount or taxvaluedollarcnt be used to calculate logerror?
 
 Data Dictionary
 ---------------
