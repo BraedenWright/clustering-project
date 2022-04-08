@@ -88,7 +88,7 @@ def wrangle_zillow():
     df = handle_missing_values(df)
     
     # Columns to drop
-    columns_to_drop = ['id', 'heatingorsystemdesc', 'heatingorsystemtypeid', 'finishedsquarefeet12', 'calculatedbathnbr', 'propertycountylandusecode', 'censustractandblock', 'fullbathcnt', 'propertylandusetypeid', 'propertylandusedesc', 'propertyzoningdesc', 'unitcnt']
+    columns_to_drop = ['id', 'heatingorsystemdesc', 'heatingorsystemtypeid', 'finishedsquarefeet12', 'calculatedbathnbr', 'propertycountylandusecode', 'censustractandblock', 'fullbathcnt', 'propertylandusetypeid', 'propertylandusedesc', 'propertyzoningdesc', 'unitcnt', 'transactiondate']
     df = df.drop(columns=columns_to_drop)
     
     # Remove nulls for buildingqualitytypeid and lotsizesquarefeet
